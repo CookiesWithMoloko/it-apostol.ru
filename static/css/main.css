@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    min-height: 100vh;
+}
+body:before{
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    background-image: url("../img/lines.svg");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+header {
+    background: black;
+    height: 80px;
+}
+.content{
+    width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+}
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+}
+.nav a {
+    text-decoration: none;
+}
+.nav .logo {
+    color: white;
+    font-size: min(4vw, 30px);
+    font-weight: 900;
+    padding: 5px 0 5px 10px;
+    border-left: 8px solid #fff;
+}
+.nav .auth {
+    color: white;
+    font-size: max(min(1vmax, 40px), 12px);
+    text-align: center;
+    font-weight: 400;
+    padding: 5px;
+    border: solid 1px white;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: color 0.4s, background-color 0.4s;
+    text-transform: uppercase;
+}
+.nav .auth:hover,
+.nav .auth:focus{
+    background-color: rgba(241, 241, 241, 0.9);
+    color:black;
+}
+@media screen and (max-width: 1200px){
+    .content{
+        width: 950px;
+    }
+}
+@media screen and (max-width: 992px){
+    .content{
+        width: 750px;
+    }
+}
+@media screen and (max-width: 768px){
+    .content{
+        width: 550px;
+    }
+}
+@media screen and (max-width: 576px){
+    .content{
+        width: 80%;
+    }
+}
+ban{
+    display: none;
+}
+@media screen and (max-width: 100px), (max-height: 100px){
+    ban{
+        display: block;
+        font-size: 10vmin;
+    }
+    main, header{
+        display: none;
+    }
+}
+
+
+

@@ -1,0 +1,105 @@
+.result-content-center{
+    margin: 50px auto 0 auto;
+    width: 80%;
+}
+.result-header{
+    display: flex;
+    flex-wrap: wrap;
+}
+.result-flex-element{
+    margin: 10px;
+    padding: 10px;
+    flex: 40%;
+    max-width: calc(50% - 40px);
+}
+.result-header span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eee;
+    box-shadow: 0 0 2px 0;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 12px;
+}
+
+.result-content{
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.result{
+    border-radius: 12px;
+    background: #eee;
+    box-shadow: 0 0 2px 0;
+}
+.result.agreed{
+    background: #94FF83;
+}
+.result-inner{
+    display: grid;
+    grid-row-gap: 15px;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-areas: "display display source" "time_tag time_tag time_value";
+}
+.result-display{
+    grid-area: display;
+    font-size: 30px;
+}
+.result-source{
+    font-size: 25px;
+    color: #3874CE;
+    grid-area: source;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.result-source-inner{
+
+}
+.result-time-tag{
+    display: flex;
+    align-items: center;
+    grid-area: time_tag;
+    font-size: 18px;
+}
+.result-time-value{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    grid-area: time_value;
+    font-size: 18px;
+    text-align: right;
+}
+@media screen and (max-width: 992px){
+    .result-content,
+    .result-content-center{
+        margin-top: 10px;
+    }
+    .result-content-center{
+        width: 100%;
+    }
+    .result-flex-element{
+        flex: 100%;
+        max-width: 100%;
+    }
+    .result-inner{
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: "display display source" "time_tag time_tag ." "time_value time_value .";
+    }
+    .result-time-value{
+        flex-direction: row;
+    }
+}
+@media screen and (max-width: 768px){
+    .result-inner{
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: "display . source" "display . ." "time_tag time_tag time_tag" "time_value time_value time_value";
+    }
+}

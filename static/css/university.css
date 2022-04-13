@@ -1,0 +1,157 @@
+.university-content-center{
+    width: 60%;
+    margin: 0 auto;
+    height: 100%;
+}
+.university-content-center h1{
+    margin: 30px 0;
+    text-align: center;
+    font-weight: 900;
+    font-size: max(min(5vw, 30px), 12px);
+}
+.university{
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 0 2px 0;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.university-info{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+            "name name name status"
+            "description description description more";
+}
+.university-info .name{
+    grid-area: name;
+    font-weight: 400;
+    text-align: left;
+    font-size: max(3vw, 18px);
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+.university-info .description{
+    grid-area: description;
+    text-transform: uppercase;
+    font-size: min(max(1.5vw, 12px), 26px);
+}
+.status{
+    grid-area: status;
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    font-size: max(min(1.3vw, 13px), 10px);
+}
+.status-inner{
+    width: max-content;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    background: #f1f1f1;
+    box-shadow: 0 0 2px 0;
+    padding: 10px;
+}
+.status .status-key{
+    font-weight: bold;
+    margin-right: 5px;
+}
+.university-info .status .status-value{
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0 5px;
+}
+.university-info .more-parent{
+    grid-area: more;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+}
+.university-info .more{
+    letter-spacing: 0.05em;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    align-items: center;
+    background: #f1f1f1;
+    box-shadow: 0 0 2px 0;
+    padding: 10px;
+    border: 0;
+    font-weight: 600;
+    width: max-content;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+.university-info .more .mark{
+    width: 3em;
+
+}
+.university-info .more span{
+    width: 10em;
+}
+.university-info .more .mark:after{
+    display: block;
+    width: 10px;
+    height: 10px;
+    transform: translate(7px, -4px) rotate(-45deg);
+    content: "";
+    border-left: 3px solid black;
+    border-bottom: 3px solid black;
+    transition: 0.4s;
+}
+.university.active-directions .university-info .more .mark:after{
+    transform: translate(7px, 4px) rotate(135deg);
+}
+.university ul.university-directions{
+    max-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    transition: 0.4s;
+}
+.university ul.university-directions li{
+    margin-bottom: 5px;
+}
+.university.active-directions ul.university-directions{
+    max-height: 30vh;
+}
+.university-direction-code{
+    font-weight: bold;
+    display: inline-block;
+    width: 4em;
+}
+@media screen and (max-width: 768px){
+    .university-content-center{
+        width: 100%;
+    }
+    .university.active-directions ul.university-directions{
+        max-height: 200vh;
+    }
+    .university-info{
+        grid-template-areas:
+            "name name name status"
+            "description description description more";
+    }
+}
+@media screen and (max-width: 576px){
+    .university-info{
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+    }
+    .status{
+        justify-content: center;
+    }
+    .university-info .more-parent{
+        justify-content: center;
+    }
+    .university ul.university-directions{
+        margin-top: 15px;
+    }
+}

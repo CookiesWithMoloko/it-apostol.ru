@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.svg') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/maskedinput.js') }}"></script>
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+<header>
+    <div class="content nav">
+        <a href="{{ url_for('.index') }}" class="logo">IT-APOSTOL</a>
+        <a href="#" class="auth">Войти в IT</a>
+    </div>
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<ban>
+    не поддерживается
+</ban>
+</body>
+</html>

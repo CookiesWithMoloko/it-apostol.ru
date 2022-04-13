@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block title %}
+    Парсер данных абитуриентов
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+   <div class="content-inner-index">
+       <div class="content-inner-left">
+           <h1>ПАРСЕР ДАННЫХ АБИТУРИЕНТОВ</h1>
+           <h2 class="description">
+               Этот сайт существует для облегчения поиска заявлений поданных абитуриентами
+           </h2>
+       </div>
+       <div class="content-inner-footer">
+           <div class="search-parent">
+               <a href="{{ url_for('.search') }}" class="btn-find">Найти<br>абитуриента</a>
+           </div>
+           <div class="univ-list">
+               <a href="{{ url_for('.university') }}">
+                   <span class="univ"></span>
+                   <span class="univ-description">ВУЗы</span>
+               </a>
+           </div>
+       </div>
+   </div>
+</div>
+{% endblock %}

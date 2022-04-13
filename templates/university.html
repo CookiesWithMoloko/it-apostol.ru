@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+{% block title %}
+ВУЗы
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/university.css') }}">
+    <script src="{{ url_for('static', filename='js/university.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="university-content-center">
+        <h1>Список поддерживаемых ВУЗов</h1>
+        {% for parser in parsers %}
+        <div class="university">
+            <div class="university-info">
+                <span class="name">{{ parser['model']['display_name'] }}</span>
+                <span class="description">{{ parser['model']['description'] }}</span>
+                <div class="status">
+                    <div class="status-inner">
+                        <span class="status-key">
+                            СТАТУС:
+                        </span>
+                            <span class="status-value" style="color: {{ parser['obj'].status.get_color() }};">
+                            {{ parser['obj'].status.get_text() }}
+                        </span>
+                    </div>
+                </div>
+                <div class="more-parent">
+                    <button class="more" onclick="toggle_display_university(this);">
+                        <span class="mark"></span><span>показать направления</span>
+                    </button>
+                </div>
+            </div>
+            <ul class="university-directions">
+                {% for dir in parser['obj']['dirs'] %}
+                    <li><span class="university-direction-code">{{ dir['name'] }}</span> — {{ dir['description'] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

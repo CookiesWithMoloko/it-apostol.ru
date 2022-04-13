@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+{% block title %}
+    Результат поиска
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="result-content-center">
+        <div class="result-header">
+            <span class="result-flex-element">{{ request['fio'] if request['fio'] != '' else 'ФИО' }}</span>
+            <span class="result-flex-element">{{ request['ins_number'] }}</span>
+        </div>
+        <div class="result-content">
+            {% for r in result %}
+                <div class="result result-flex-element{{ ' agreed' if r['agreed'] else '' }}">
+                    <div class="result-inner">
+                        <span class="result-display"><b>{{ r['university']['display_name'] }}</b> {{ r['study']['name'] }}</span>
+                        <div class="result-source">
+                            <a class="result-source-inner" href="{{ r['link'] }}">Источник</a>
+                        </div>
+                        <span class="result-time-tag">Время обновления</span>
+                        <span class="result-time-value">{{ r['change'] }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

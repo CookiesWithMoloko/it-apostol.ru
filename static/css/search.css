@@ -1,0 +1,123 @@
+.search-block-parent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+}
+.search-block{
+    margin-top: 15vh;
+    width: 50%;
+    background: white;
+    border-radius: 8px;
+    padding: 40px 40px 10px 40px;
+    box-shadow: 0 0 2px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+}
+.search-fields{
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 45% 45%;
+    grid-column-gap: 10%;
+    grid-template-areas: "A A" "B B";
+}
+.search-fields .fio{
+    grid-area: A;
+}
+
+.search-fields .ins-number{
+    grid-area: B;
+}
+.search-fields label{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+.search-fields label input{
+    width: 100%;
+    padding: 5px 20px;
+    border: 0;
+    background: #D7D7D7;
+    border-radius: 10px;
+    font-size: 22px;
+}
+.search-fields label span{
+    text-align: left;
+    width: 100%;
+}
+.search-fields label input:focus{
+    outline: none;
+}
+.search-block-parent button{
+    margin-top: 50px;
+    width: 390px;
+    padding: 10px;
+    border-radius: 20px;
+    background: #FFE663;
+    border: 0;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 0px;
+}
+.search-block-parent button:active{
+    transform: translateY(3px);
+}
+.search-block .error{
+    width: 100%;
+    font-weight: 700;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 22px;
+    padding: 0;
+    background: red;
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0s, max-height 0.4s;
+    display: block;
+}
+.error-mark{
+    font-weight: 900;
+    color: red;
+    padding-left: 10px;
+    display: none;
+}
+.error-mark.show{
+    display: inline;
+}
+.search-block .error.show{
+    padding: 3px 10px;
+    display: block;
+    max-height: 100px;
+}
+@media screen and (max-width: 992px){
+    .search-fields{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+    }
+    .search-block-parent button{
+        width: 80%;
+    }
+    .search-block{
+        margin-top: 7vh;
+        width: 90%;
+    }
+}
+@media screen and (max-width: 768px){
+
+}
+@media screen and (max-width: 576px){
+
+}

@@ -1,0 +1,26 @@
+.content-error{
+    width: 100%;
+    padding-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.content-error img{
+    width: 7vw;
+    height: 7vw;
+    padding: 20px 0;
+}
+.content-error h1{
+    font-size: 2.3vw;
+}
+.content-error a{
+    text-decoration: none;
+    color: black;
+    background: #FFE663;
+    font-weight: bolder;
+    width: 30%;
+    font-size: 2.3vw;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+}

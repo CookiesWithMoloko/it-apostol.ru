@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block title %}
+    Ничего не найдено
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/people_not_found.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="content content-error">
+        <h1>Ой... что-то пошло не так ( Такого абитуриента не существует<br>Возможно введены некорректные данные </h1>
+        <img src="{{ url_for('static', filename='img/error.svg') }}" alt="">
+        <a href="{{ url_for('.search') }}">На страницу поиска</a>
+    </div>
+{% endblock %}

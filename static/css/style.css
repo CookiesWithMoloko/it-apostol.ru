@@ -1,0 +1,230 @@
+.mon{
+    font-family: 'Montserrat', sans-serif;
+}
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background: linear-gradient(rgba(241, 241, 241, 1), rgba(221, 223, 224, 0));
+    height: 100vh;
+    background-image: url("/img/line.png");
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    font-family: 'Montserrat', sans-serif;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+header{
+    height: 70px;
+    background-color: black;
+}
+.header{
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.logo {
+    font-size: 30px;
+    text-align: center;
+    height: 100%;
+    padding: 4px 0px 4px 5px;
+    border-left: solid 8px #fff;
+    font-weight: 900;
+}
+button.vxod{
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 20px;
+    text-align: center;
+    height: 50%;
+    font-weight: 400;
+    padding: 5px;
+    border: solid 1px white;
+    border-radius: 7px;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: 0.4s;
+}
+button.vxod:hover{
+    background-color: rgba(241, 241, 241, 0.9);
+    color:black;
+    transition: 0.4s;
+}
+.center{
+    display: flex;
+    width: 100%;
+    margin-top: 25vh;
+    text-align: left;
+}
+.first{
+    font-size: 28px;
+    width: max-content;
+    margin: auto;
+}
+.block{
+    width: 20vw;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 500;
+}
+.button{
+    background-color: rgba(255, 223, 57, 1);
+    border: solid 1px #cccccc;
+    border-radius: 20px;
+    color: black;
+    font-size: 20px;
+    padding: 25px 50px;
+    text-align: center;
+    overflow-wrap: break-word;
+    margin: auto;
+    margin-top: 20vh;
+    cursor: pointer;}
+.button:active {
+    background-color: rgba(255, 230, 99, 1);
+    transform: translateY(4px);
+}
+div.vyz{
+    position: relative;
+}
+img.vyz{
+    position: absolute;
+    height: 65px;
+    bottom: 5px;
+    right: 20vw;
+    cursor: pointer;
+    transition: 0.4s;
+}
+img.vyz:hover{
+    transform: translateY(4px);
+}
+
+.center_2{
+    display: flex;
+    width: 60vw;
+    margin-top: 10vh;
+    margin-left: 20vw;
+    background-color: #fff;
+    height: 40vh;
+    border-radius: 15px;
+    -webkit-box-shadow: 1px 3px 17px 8px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 1px 3px 17px 8px rgba(34, 60, 80, 0.2);
+    box-shadow: 1px 3px 17px 8px rgba(34, 60, 80, 0.2);
+
+}
+.abi{
+    font-size: 30px;
+    font-weight: 800;
+    width: 100%;
+}
+.button_2{
+    background-color: rgba(255, 223, 57, 1);
+    border: solid 1px #cccccc;
+    border-radius: 20px;
+    color: black;
+    font-size: 20px;
+    padding: 25px 50px;
+    text-align: center;
+    overflow-wrap: break-word;
+    margin: auto;
+    margin-top: 3vh;
+    cursor: pointer;}
+.button_2:active {
+    background-color: rgba(255, 230, 99, 1);
+    transform: translateY(4px);
+}
+
+input[type="text"].field{
+    width: 100%;
+    margin: auto 0;
+    padding: 10px 20px;
+    display: block;
+    border: 0;
+    border-radius: 15px;
+    background-color: #D7D7D7;
+}
+input[type="text"].field:focus{
+    outline: none;
+}
+span.field_name{
+    display: block;
+    font-weight: 600;
+    margin-left: 1vw;
+    margin-bottom: 0.5vh;
+}
+.fio{
+    width: 90%;
+}
+.formbox{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2vh;
+}
+.content{
+    margin-left: 12.5vw;
+    height: available;
+    width: 75vw;
+}
+div.mblock{
+    width: 35vw;
+    height: 5vw;
+    text-align: center;
+    display: flex;
+    background: #D7D7D7;
+    border-radius: 20px;
+}
+span.mblock{
+    margin: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vw;
+}
+.subhead{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.result{
+    display: block;
+    margin-top: 3vh;
+}
+.resultrow{
+    width: 100%;
+    margin-bottom: 5vh;
+    display: flex;
+    justify-content: space-between;
+}
+.resultblock{
+    width: 35vw;
+    height: 20vh;
+    border-radius: 15px;
+    background-color: #ccc;
+    display: inline-flex;
+    flex-direction: column;
+}
+.tick{
+    width: 1.3vw;
+
+}
+.soglasie{
+    background-color: #fff;
+    height: 2.5vh;
+    padding: 2px 5px;
+    border-radius: 7px;
+    position: relative;
+    width: 6vw;
+    display: flex;
+}
+.top{
+    margin-top: 7px;
+    display: inline-flex;
+    position: relative;
+    height: 5vh;
+}
+.container
