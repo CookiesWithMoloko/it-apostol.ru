@@ -1,5 +1,5 @@
 from typing import Optional, List, Callable
-from flask import request
+from flask import request, session
 from flask import abort
 from models import User
 from perms import PermissionManager
