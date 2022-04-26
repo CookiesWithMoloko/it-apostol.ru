@@ -87,8 +87,11 @@
         display: grid;
         grid-row-gap: 5px;
         grid-template-rows: repeat(3, 1fr);
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-areas: "display display source" "time_tag time_tag ." "time_value time_value .";
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: 
+        "display display source"
+         "time_tag time_tag ."
+          "time_value time_value .";
     }
     .result-time-value{
         flex-direction: row;

@@ -3,9 +3,11 @@ from app import db
 
 def as_dict(self):
     r = dict()
+
     def getr(name: str):
         if hasattr(self, name):
             r[name] = getattr(self, name).as_dict()
+
     for c in self.__table__.columns:
         a = getattr(self, c.name)
         if isinstance(a, db.Model):
@@ -52,14 +54,30 @@ class StudyDirection(db.Model):
     description = db.Column(db.Text, unique=False, nullable=True)
 
 
-class AuthClient(db.Model):
-    __tablename__ = 'auth'
+class User(db.Model):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    login = db.Column(db.String(128), unique=True, nullable=False)
+    display_name = db.Column(db.String(128), unique=True, nullable=False)
     password = db.Column(db.String(32), unique=False, nullable=True)
     email = db.Column(db.String(128), unique=True, nullable=False)
-    vk = db.Column(db.BigInteger, nullable=True)
     token = db.Column(db.String(128), unique=True, nullable=False)
     ip = db.Column(db.String(32), unique=False)
     reg_date = db.Column(db.BigInteger, nullable=False)
     auth_date = db.Column(db.BigInteger, nullable=False)
+    permissions = db.Column(db.PickleType(mutable=True), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
+    group = db.relationship('Group', backref='users', uselist=True)
+
+
+class Group(db.Model):
+    __tablename__ = 'group'
+    id = db.Column(db.Integer, primary_key=True)
+
+    name = db.Column(db.String(32), unique=True)
+    display_name = db.Column(db.String(64), unique=False)
+
+    priority = db.Column(db.Integer, unique=True)
+    permissions = db.Column(db.PickleType(mutable=True), nullable=False)
+    inheritance = db.Column(db.PickleType(mutable=True), nullable=False)
+
+

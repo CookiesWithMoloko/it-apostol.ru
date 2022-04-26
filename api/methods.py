@@ -34,12 +34,12 @@ def check(fio, ins_number):
 def update_time():
     i: ParserBase
     return ApiAnswer(True, data={
-        'manager':{
+        'manager': {
             'work': manager.work,
             'thread': str(manager.t),
             'status': manager.status
         },
-        'parsers':[
+        'parsers': [
             {
                 'name': i.name,
                 'time': i.last_use
