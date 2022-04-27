@@ -2,14 +2,14 @@ from app import db
 from models import University, StudyDirection
 
 u = (
-    University(name='sfedu', display_name='ЮФУ', link='https://sfedu.ru', description=''),
-    University(name='vsuet', display_name='ВГУИТ', link='https://vsuet.ru', description='')
+    University(name='sfedu', display_name='ЮФУ', link='https://sfedu.ru', description='ВОРОНЕЖСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ ИНЖЕНЕРНЫХ ТЕХНОЛОГИЙ'),
+    University(name='vsuet', display_name='ВГУИТ', link='https://vsuet.ru', description='ЮЖНЫЙ ФЕДЕРАЛЬНЫЙ УНИВЕРСИТЕТ')
 )
 s = (
-    StudyDirection(name='10.05.03', description='ИБАС'),
-    StudyDirection(name='10.05.05', description=''),
-    StudyDirection(name='10.05.02', description=''),
-    StudyDirection(name='10.03.01', description='')
+    StudyDirection(name='10.05.03', description='Информационная безопасность автоматизированных систем'),
+    StudyDirection(name='10.05.05', description='Безопасность информационных технологий в правоохранительной сфере'),
+    StudyDirection(name='10.05.02', description='Информационная безопасность телекоммуникационных систем'),
+    StudyDirection(name='10.03.01', description='Информационная безопасность')
 )
 for i in u:
     if University.query.filter_by(name=i.name).first() is None:
