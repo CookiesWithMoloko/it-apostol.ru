@@ -197,3 +197,6 @@ class ParserManager:
 
 
 manager = ParserManager()
+
+import import_helper
+import_helper.import_dir('parsers', log=True)

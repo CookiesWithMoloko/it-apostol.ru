@@ -64,7 +64,7 @@ class User(db.Model):
     ip = db.Column(db.String(32), unique=False)
     reg_date = db.Column(db.BigInteger, nullable=False)
     auth_date = db.Column(db.BigInteger, nullable=False)
-    permissions = db.Column(db.PickleType(mutable=True), nullable=False)
+    permissions = db.Column(db.PickleType, nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
     group = db.relationship('Group', backref='users', uselist=True)
 
@@ -77,7 +77,7 @@ class Group(db.Model):
     display_name = db.Column(db.String(64), unique=False)
 
     priority = db.Column(db.Integer, unique=True)
-    permissions = db.Column(db.PickleType(mutable=True), nullable=False)
-    inheritance = db.Column(db.PickleType(mutable=True), nullable=False)
+    permissions = db.Column(db.PickleType, nullable=False)
+    inheritance = db.Column(db.PickleType, nullable=False)
 
 

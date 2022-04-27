@@ -1,17 +1,17 @@
-from flask import session, url_for, request, redirect, render_template, abort
-from app import app, db
+from flask import request,  render_template
+from app import app
 from parsers import manager
 from datetime import datetime
-from models import People, University, StudyDirection
-import re
-import math
+from perms.auth import AuthUser
 from api import api
 from api.answer import ApiAnswer
 @app.route('/search')
 def search():
     return render_template('search.html')
 
+
 @app.route('/university')
+@AuthUser.auth_required(permissions=['admin'])
 def university():
     parsers = list([
         {

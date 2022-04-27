@@ -1,7 +1,7 @@
 import re
 from typing import Optional
-from perms.user import PermissionUser
 from models import User
+
 class PermissionValidator:
     def check_mask(self, permission: str, pattern: str) -> bool:
         if pattern.startswith('-'):
@@ -13,6 +13,8 @@ class PermissionValidator:
     def has_permission(self, permission: str) -> Optional[bool]:
         pass
 
+
+from perms.user import PermissionUser
 class PermissionManager:
     def __init__(self):
         pass

@@ -1,4 +1,1 @@
-import routes.admin
-import routes.main
-import routes.api
-import routes.error
+__import__('import_helper').import_dir('routes', log=True)
