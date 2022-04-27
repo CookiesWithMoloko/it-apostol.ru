@@ -11,7 +11,6 @@ def search():
 
 
 @app.route('/university')
-@AuthUser.auth_required(permissions=['admin'])
 def university():
     parsers = list([
         {
