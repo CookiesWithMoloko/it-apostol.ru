@@ -1,14 +1,13 @@
 from app import app, db
 
-
 from parsers import manager as pm
-
 import models
 
 db.create_all()
+
 import db_init
 # Parsers
-import parsers
+__import__('import_helper').import_dir('parsers', log=True)
 
 # Routes
 import routes
