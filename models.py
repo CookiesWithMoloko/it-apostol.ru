@@ -1,5 +1,5 @@
 from app import db
-
+from sqlalchemy.sql import func
 
 def as_dict(self):
     r = dict()
@@ -61,9 +61,9 @@ class User(db.Model):
     password = db.Column(db.String(32), unique=False, nullable=True)
     email = db.Column(db.String(128), unique=True, nullable=False)
     token = db.Column(db.String(128), unique=True, nullable=False)
-    ip = db.Column(db.String(32), unique=False)
-    reg_date = db.Column(db.BigInteger, nullable=False)
-    auth_date = db.Column(db.BigInteger, nullable=False)
+    ip = db.Column(db.String(32))
+    reg_date = db.Column(db.BigInteger, server_default=func.now())
+    auth_date = db.Column(db.BigInteger, server_onupdate=func.now())
     permissions = db.Column(db.PickleType, nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
     group = db.relationship('Group', backref='users', uselist=True)

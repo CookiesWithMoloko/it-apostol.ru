@@ -1,4 +1,4 @@
-from pwd_manager import PasswordManager
+from perms.pwd_manager import PasswordManager
 from hashlib import md5
 
 class Md5Manager(PasswordManager):

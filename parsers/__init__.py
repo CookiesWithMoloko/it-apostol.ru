@@ -173,7 +173,6 @@ class ParserManager:
         self.parsers.append(f)
 
     def post_register(self, *args, **kwargs) -> int:
-        """return count registered parsers"""
         self.parsers = [
             i(*args, **kwargs) for i in self.parsers
         ]

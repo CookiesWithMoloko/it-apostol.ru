@@ -6,8 +6,8 @@ class PasswordManager:
     def hash_password(pwd: str) -> str:
         """
 
-        :param pwd: password
-        :return: password hash
+        :param pwd: Password
+        :return: Password hash
         """
         return
     @staticmethod
