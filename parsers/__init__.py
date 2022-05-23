@@ -184,10 +184,13 @@ class ParserManager:
         if not self.active:
             raise RuntimeError("ParserManager.post_register() require for work ParserManager.exec()")
         for i in self.parsers:
-            if not i.is_actual():
-                self.status = f'update {i}'
-                i.exec()
-                self.status = f'end update {i}'
+            try:
+                if not i.is_actual():
+                    self.status = f'update {i}'
+                    i.exec()
+                    self.status = f'end update {i}'
+            except Exception as e:
+                print(e)
         self.work = False
         self.t = None
 
