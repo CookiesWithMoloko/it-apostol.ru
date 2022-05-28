@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+import datetime
 from typing import Optional, List, Callable
 from flask import request
 import functools
@@ -11,6 +13,7 @@ from models import User
 from perms import PermissionManager
 from perms.pwd_manager import PasswordManager
 from perms.md5_pwd import Md5Manager
+from app import db
 class AuthUser:
     password_manager: PasswordManager = Md5Manager()
     def __init__(self, token: str) -> None:
@@ -57,7 +60,12 @@ class AuthUser:
             raise EmailNotFoundException()
         if not AuthUser.password_manager.check_hash(password, user.password):
             raise InvalidPasswordException()
-        return AuthUser.generate_token(user)
+        token: str = AuthUser.generate_token(user)
+        user.token = token
+        user.ip = str(request.remote_addr)
+        user.auth_date = datetime.datetime.now()
+        db.session.commit()
+        return token
 
     @staticmethod
     def auth_required(
