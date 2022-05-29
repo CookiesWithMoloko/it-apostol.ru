@@ -24,6 +24,16 @@ header {
     background: black;
     height: 80px;
 }
+.header-login{
+    color: #fff;
+    outline: none;
+    text-decoration: none;
+}
+.header-logout{
+    margin-left: 10px;
+    text-transform: uppercase;
+    color: inherit;
+}
 .content{
     width: 1200px;
     margin: 0 auto;

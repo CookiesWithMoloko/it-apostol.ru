@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Авторизация</title>
-</head>
-<body>
-<form action="login" method="post">
-    <label>
-        <span>Введите почту</span>
-        <input type="email" name="email">
-    </label>
-    <label>
-        <span>Введите пароль</span>
-        <input type="password" name="password">
-    </label>
-    <input type="submit" value="Отправить">
-</form>
-</body>
-</html>
+{% extends 'main.html' %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <h1>Войдите в аккаунт</h1>
+        <form action="{{ url_for('.login') }}" method="post" class="register-form">
+            <div class="register-form-fields">
+                <label>
+                    <div>Email</div>
+                    <input name="email" type="text" pattern=".+@.+\..+" required>
+                </label>
+                <label>
+                    <div>Пароль</div>
+                    <input type="password" name="password" required>
+                </label>
+            </div>
+            <input type="submit" value="Продолжить" class="submit">
+        </form>
+    </div>
+{% endblock %}

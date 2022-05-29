@@ -42,7 +42,7 @@ class AuthUser:
     def check_password(pwd: str, pwd_hash: str) -> bool:
         return AuthUser.password_manager.check_hash(pwd, pwd_hash)
     @staticmethod
-    def generate_token(user: User):
+    def generate_token(user: User) -> str:
         return '%s:%s' % (
             md5(str(user.id).encode()).hexdigest(),
             ''.join(choice(list(ascii_letters)) for _ in range(64))

@@ -16,7 +16,17 @@
 <header>
     <div class="content nav">
         <a href="{{ url_for('.index') }}" class="logo">IT-APOSTOL</a>
-        <a href="#" class="auth">Войти в IT</a>
+        {% if show_login %}
+            {% if not user.is_authorized() %}
+            <a href="{{ url_for('.login') }}" class="auth">Войти в IT</a>
+            {% endif %}
+            {% if user.is_authorized() %}
+                <div class="header-login">
+                    {{ user.user.display_name }}
+                    <a href="{{ url_for('.logout') }}" class="auth header-logout">ВЫЙТИ</a>
+                </div>
+            {% endif %}
+        {% endif %}
     </div>
 </header>
 <main>

@@ -34,25 +34,7 @@ def get_result():
     else:
         return render_template('error/people_not_found.html', error=r.as_dict())
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-    elif request.method == 'POST':
-        email = request.form.get('email', None)
-        pwd = request.form.get('password', None)
-        if email is None or pwd is None:
-            return 'invalid args', 400
-        from perms.exc import EmailNotFoundException, InvalidPasswordException
-        try:
-            token = AuthUser.auth_user(email, pwd)
-        except EmailNotFoundException:
-            return 'Email not found', 403
-        except InvalidPasswordException:
-            return 'Invalid password', 403
-        resp = make_response(redirect(url_for('.index')))
-        resp.set_cookie('token', token, 1_209_600)
-        return resp
+
 
 
 
