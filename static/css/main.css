@@ -25,9 +25,13 @@ header {
     height: 80px;
 }
 .header-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #fff;
     outline: none;
     text-decoration: none;
+    font-size: max(min(1.3vmax, 40px), 12px);
 }
 .header-logout{
     margin-left: 10px;
@@ -91,6 +95,9 @@ header {
 @media screen and (max-width: 576px){
     .content{
         width: 80%;
+    }
+    .header-login{
+        flex-direction: column;
     }
 }
 ban{

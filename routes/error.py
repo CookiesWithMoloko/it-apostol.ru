@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request
+from flask import render_template, request, redirect
 
 @app.errorhandler(404)
 def on404(e):

@@ -1,5 +1,11 @@
+import sqlalchemy
+import itertools
 from app import db
 from sqlalchemy.sql import func
+from sqlalchemy.ext.mutable import MutableList
+
+def comparetor_list_equal(a: db.PickleType, b: db.PickleType):
+    return all([k == v for k,v in itertools.zip_longest(list(a), list(b), )])
 
 def as_dict(self):
     r = dict()
@@ -58,15 +64,15 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     display_name = db.Column(db.String(128), unique=True, nullable=False)
-    password = db.Column(db.String(32), unique=False, nullable=True)
+    password = db.Column(db.String(32), unique=False, nullable=False)
     email = db.Column(db.String(128), unique=True, nullable=False)
     token = db.Column(db.String(128), unique=True, nullable=False)
     ip = db.Column(db.String(32))
     reg_date = db.Column(db.BigInteger, server_default=func.now())
     auth_date = db.Column(db.BigInteger, server_onupdate=func.now())
-    permissions = db.Column(db.PickleType, nullable=False)
+    permissions = db.Column(MutableList.as_mutable(db.PickleType), default=[])
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
-    group = db.relationship('Group', backref='users', uselist=True)
+    group = db.relationship('Group', backref='users')
 
 
 class Group(db.Model):
@@ -77,7 +83,7 @@ class Group(db.Model):
     display_name = db.Column(db.String(64), unique=False)
 
     priority = db.Column(db.Integer, unique=True)
-    permissions = db.Column(db.PickleType, nullable=False)
-    inheritance = db.Column(db.PickleType, nullable=False)
+    permissions = db.Column(MutableList.as_mutable(db.PickleType), default=[])
+    inheritance = db.Column(MutableList.as_mutable(db.PickleType), default=[])
 
 

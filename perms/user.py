@@ -5,8 +5,8 @@ from app import db
 
 class PermissionUser(PermissionValidator):
     def __init__(self, user: User):
-        self.user = user
-        self.group = PermissionGroup(user.group)
+        self.user: User = user
+        self.group: PermissionGroup = PermissionGroup(user.group)
 
     def has_permission(self, perm: str):
         t = self.group.has_permission(perm)

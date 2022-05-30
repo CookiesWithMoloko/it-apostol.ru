@@ -8,3 +8,4 @@ def import_dir(path: str, log: bool = False):
             if log:
                 print('import %s.%s' % (path, i[:-3]))
             importlib.import_module('%s.%s' % (path, i[:-3]))
+

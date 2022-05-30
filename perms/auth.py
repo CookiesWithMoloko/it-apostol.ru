@@ -11,13 +11,18 @@ from hashlib import md5
 from perms.exc import *
 from models import User
 from perms import PermissionManager
+from perms.user import PermissionUser
 from perms.pwd_manager import PasswordManager
 from perms.md5_pwd import Md5Manager
 from app import db
+
+
 class AuthUser:
     password_manager: PasswordManager = Md5Manager()
+
     def __init__(self, token: str) -> None:
-        self.user = User.query.filter_by(token=token).first()
+        self.user: User = User.query.filter_by(token=token).first()
+        self.perm: Optional[PermissionUser] = None
         if self.user is not None:
             self.perm = PermissionManager.get_user(self.user.id)
 
@@ -28,6 +33,24 @@ class AuthUser:
         if self.user is None:
             return False
         return self.perm.has_permission(perm)
+
+    @staticmethod
+    def register(email: str, password: str, display_name=None) -> bool:
+        if display_name is None:
+            display_name = email
+        u = User(
+            email=email,
+            password=AuthUser.password_manager.hash_password(password),
+            display_name=display_name,
+            token=email
+        )
+        try:
+            db.session.add(u)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return False
+        return True
 
     @staticmethod
     def get_user() -> AuthUser:
@@ -41,12 +64,14 @@ class AuthUser:
     @staticmethod
     def check_password(pwd: str, pwd_hash: str) -> bool:
         return AuthUser.password_manager.check_hash(pwd, pwd_hash)
+
     @staticmethod
     def generate_token(user: User) -> str:
         return '%s:%s' % (
             md5(str(user.id).encode()).hexdigest(),
             ''.join(choice(list(ascii_letters)) for _ in range(64))
         )
+
     @staticmethod
     def auth_user(email: str, password: str) -> str | InvalidPasswordException | EmailNotFoundException:
         """
@@ -87,8 +112,7 @@ class AuthUser:
                             return abort(permission_error_code)
                         return on_error(PermissionDeniedException(i))
                 f(*args, **kwargs)
+
             return wrapper
+
         return r
-
-
-

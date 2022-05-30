@@ -10,6 +10,8 @@ class PermissionGroup(PermissionValidator):
         self.group: Group = group
 
     def has_permission(self, permission: str) -> Optional[bool]:
+        if self.group is None:
+            return
         t = None
         for i in list(self.group.inheritance):
             r = PermissionGroup(Group.query.filter_by(id=i).first())
@@ -22,10 +24,14 @@ class PermissionGroup(PermissionValidator):
                 t = r
         return t
     def add_permission(self, perm: str) -> None:
+        if self.group is None:
+            return
         list(self.group.permissions).append(perm)
         db.session.commit()
 
     def take_permission(self, perm: str) -> None:
+        if self.group is None:
+            return
         self.group.permissions = list(filter(
             lambda a: a != perm,
             list(self.group.permissions)

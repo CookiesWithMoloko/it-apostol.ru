@@ -22,10 +22,10 @@ def university():
 
 @app.route('/check', methods=['POST', 'GET'])
 def get_result():
-    r: ApiAnswer = api.execute('check', request.args)
+    r: ApiAnswer = api.execute('check', request.form)
     req = {
-        'fio': request.args.get('fio', ''),
-        'ins_number': request.args.get('ins_number', '')
+        'fio': request.form.get('fio', ''),
+        'ins_number': request.form.get('ins_number', '')
     }
     for i, v in enumerate(r.data):
         r.data[i]['change'] = datetime.utcfromtimestamp(int(r.data[i]['change']) + 3 * 3600).strftime('%H:%M %d.%m.%Y')

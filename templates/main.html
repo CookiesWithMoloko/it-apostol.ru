@@ -24,6 +24,9 @@
                 <div class="header-login">
                     {{ user.user.display_name }}
                     <a href="{{ url_for('.logout') }}" class="auth header-logout">ВЫЙТИ</a>
+                    {% if user.has_permission('admin.index.button') %}
+                        <a href="{{ url_for('.admin') }}" class="auth header-logout">АДМИНКА</a>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endif %}

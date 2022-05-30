@@ -32,21 +32,9 @@ s = (
         description='Информационная безопасность'
     )
 )
-a = (
-    User(
-        email='admin@mail.ru',
-        password=AuthUser.hash_password('admin'),
-        display_name='Администратор',
-        token='',
-        permissions=[]
-    ),
-)
 for i in u:
     if University.query.filter_by(name=i.name).first() is None:
         db.session.add(i)
 for i in s:
     if StudyDirection.query.filter_by(name=i.name).first() is None:
-        db.session.add(i)
-for i in a:
-    if User.query.filter_by(email=i.email).first() is None:
         db.session.add(i)

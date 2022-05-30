@@ -7,7 +7,7 @@
     <script src="{{ url_for('static', filename='js/search.js') }}"></script>
 {% endblock %}
 {% block content %}
-    <form class="content" type="POST" action="{{ url_for('.get_result') }}">
+    <form class="content" method="POST" action="{{ url_for('.get_result') }}">
         <div class="search-block-parent">
             <div class="search-block">
                 <h1>Данные абитуриента</h1>

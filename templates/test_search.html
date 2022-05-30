@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% block title %}
+    Поиск
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/test_search.css') }}">
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <section class="section-white">
+        <form class="content" method="POST" action="{{ url_for('.get_result') }}">
+            <div class="search-block-parent">
+                <div class="search-block">
+                    <h1>Данные абитуриента</h1>
+                    <div class="search-fields">
+                        <label class="fio">
+                            <span>ФИО</span>
+                            <input name="fio" type="text" placeholder="Иванов Иван Иванович">
+                        </label>
+                        <label class="ins-number">
+                            <span>СНИЛС<span class="error-mark">!</span></span>
+                            <input name="ins_number" type="text" placeholder="111-111-111 11">
+                        </label>
+                    </div>
+                    <div class="error">
+                        <span>Введены некорректные данные</span>
+                    </div>
+                </div>
+                <button>Найти<br>абитуриента</button>
+            </div>
+        </form>
+    </section>
+    <section class="section-circle">
+
+    </section>
+{% endblock %}

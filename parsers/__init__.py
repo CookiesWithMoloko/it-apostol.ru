@@ -161,6 +161,7 @@ class ParserManager:
                 obj: ParserBase = f(*args, **kwargs, interval=interval)
                 obj.__doc__ = f"SfeduAbitParser\nName: {name}\nAuthor: {author}\nLink: {link}\nUsage interval: {interval} seconds"
                 obj.id = id
+                dirs.sort()
                 obj.dirs = list([StudyDirection.query.filter_by(name=i).first().as_dict() for i in dirs])
                 obj.name = name
                 return obj
