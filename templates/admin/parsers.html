@@ -11,7 +11,7 @@
     <title>Admin</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_index.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/admin_index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin_parsers.js') }}"></script>
 </head>
 <body>
     <header class="header" id="header">
@@ -70,7 +70,7 @@
                                     <span>Интервал обновления:</span>
                                 </div>
                                 <div class="column-2">
-                                    <span>{{ parser['obj'].last_use }}</span>
+                                    <span class="last_use-field">{{ parser['obj'].last_use }}</span>
                                     <span>{{ parser['obj'].interval }}</span>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                         </div>
                         <a href="#" class="parser-block-edit">
                             Редактировать
-                            <img src="{{ url_for('static', filename='img/setings.svg') }}" alt="*">
+                            <img src="{{ url_for('static', filename='img/settings.svg') }}" alt="*">
                         </a>
                     </div>
                 </div>
