@@ -8,10 +8,10 @@ from parsers import manager, ParserBase
 
 @api.register(
     name='check',
-    ret=Validator.List(Validator.String('People')),
+    ret=Validator.List(Validator.String('StudyDirectionReq')),
     args=[
         Argument('fio', Validator.String(), default=Argument.NONE),
-        Argument('ins_number', Validator.InsNumber(), default=Argument.NONE)
+        Argument('ins_number', Validator.InsNumber(), default=None)
     ]
 )
 def check(fio, ins_number):
