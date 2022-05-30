@@ -2,6 +2,7 @@ import sqlalchemy.sql.compiler
 from flask_sqlalchemy import SQLAlchemy
 from models import People, StudyDirection, University
 from time import time
+from typing import List
 from threading import Thread
 import re
 from app import app
@@ -38,6 +39,10 @@ class ParserBase:
         self._number_pattern = re.compile('^[0-9]{3}-[0-9]{3}-[0-9]{3} [0-9]{2}$')
         self.active = True
         self.model = None
+        self.name: str
+        self.dirs: List[str]
+    def get_count_peoples(self) -> int:
+        return People.query.filter_by(university_id=self.id).count()
     def as_dict(self):
         return {
             'name': self.name,

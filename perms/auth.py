@@ -111,7 +111,7 @@ class AuthUser:
                         if on_error is None:
                             return abort(permission_error_code)
                         return on_error(PermissionDeniedException(i))
-                f(*args, **kwargs)
+                return f(*args, **kwargs)
 
             return wrapper
 

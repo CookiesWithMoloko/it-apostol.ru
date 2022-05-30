@@ -1,7 +1,7 @@
-
+from typing import Union
 import json
 class ApiAnswer:
-    def __init__(self, status: bool, data: object = '', error: str = ''):
+    def __init__(self, status: bool, data: Union[str, list, dict] = '', error: str = ''):
         self.status = status
         self.data = data
         self.error = error

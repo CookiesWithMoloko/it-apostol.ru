@@ -1,12 +1,27 @@
 import json
 
 from app import app
-from flask import abort, jsonify, render_template, request
+from flask import abort, jsonify, render_template, request, Blueprint
 from perms.auth import AuthUser
+from parsers import manager
 
-@app.route('/admin')
-def admin():
-    abort(401, description='Adminki nema')
+bp = Blueprint('admin', 'admin', url_prefix='/admin')
+
+@bp.route('/')
+@bp.route('/parsers')
+@AuthUser.auth_required(
+    permissions=['admin.parsers.view']
+)
+def index():
+    parsers = list([
+        {
+            "obj": i,
+            "model": i.get_model()
+        } for i in manager.parsers
+    ])
+    return render_template('admin/parsers.html', parsers=parsers)
+
+app.register_blueprint(bp)
 
 # @app.route('/user')
 # def index_user():
@@ -20,7 +35,3 @@ def admin():
 #         return jsonify(json.loads(r))
 #     return 'Not authorized'
 #
-
-# @app.route('/reg_admin')
-# def reg_admin():
-#     return str(AuthUser.register('admin@mail.ru', 'admin', display_name='Администратор TEST'))

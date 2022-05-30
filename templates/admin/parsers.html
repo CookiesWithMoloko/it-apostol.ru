@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=M+PLUS+Rounded+1c:wght@900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_index.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/admin_index.js') }}"></script>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="nav">
+                <ul class="menu">
+                    <li>
+                        <a href="#">
+                            Parsers
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Users
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Permissions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            LOGS
+                        </a>
+                    </li>
+					<li>
+                        <a href="#">
+                            REG USER
+                        </a>
+                    </li>
+                </ul>
+                <a href="#" class="btn-sandwich">
+                    <img src="{{ url_for('static', filename='img/sandwich.svg') }}" alt="">
+                </a>
+            </div>
+        </div>
+    </header>
+    <section class="content" id="content">
+        <!-- PARSERS -->
+        <div class="container">
+            {% for parser in parsers %}
+                <div class="parser-block">
+                    <div class="parser-block-header">
+                        <span class="parser-name">{{ parser['obj'].name }} #{{ parser['obj'].id }}</span>
+                        <label class="btn-switch">
+                            <input type="checkbox" {{ 'checked' if parser['obj'].status.get_status() else '' }} />
+                            <span class="btn-switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="parser-block-info">
+                        <div class="parser-block-info-content">
+                            <div class="column">
+                                <div class="column-2">
+                                    <span>Последнее обновление:</span>
+                                    <span>Интервал обновления:</span>
+                                </div>
+                                <div class="column-2">
+                                    <span>{{ parser['obj'].last_use }}</span>
+                                    <span>{{ parser['obj'].interval }}</span>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="column-2">
+                                    <span>Количество записей в базе:</span>
+                                </div>
+                                <div class="column-2">
+                                    <span>{{ parser['obj'].get_count_peoples() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="parser-block-edit">
+                            Редактировать
+                            <img src="{{ url_for('static', filename='img/setings.svg') }}" alt="*">
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</body>
+</html>
