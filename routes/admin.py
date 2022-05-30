@@ -8,12 +8,6 @@ from perms.auth import AuthUser
 def admin():
     abort(401, description='Adminki nema')
 
-
-@app.route('/test_search')
-def test_search():
-    if request.remote_addr != '93.178.115.79':
-        return abort(401, description="пашол нахуй умный фронт")
-    return render_template('test_search.html')
 # @app.route('/user')
 # def index_user():
 #     user: AuthUser = AuthUser.get_user()
