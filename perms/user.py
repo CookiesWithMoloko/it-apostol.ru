@@ -17,8 +17,9 @@ class PermissionUser(PermissionValidator):
         return t
 
     def add_permission(self, perm: str) -> None:
-        list(self.user.permissions).append(perm)
-        db.session.commit()
+        if perm not in list(self.user.permissions):
+            self.user.permissions += [perm]
+            db.session.commit()
 
     def take_permission(self, perm: str) -> None:
         self.user.permissions = list(filter(

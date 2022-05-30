@@ -20,12 +20,7 @@ def admin():
 #         return jsonify(json.loads(r))
 #     return 'Not authorized'
 #
-# @app.route('/get_admin')
-# def get_admin():
-#     user: AuthUser = AuthUser.get_user()
-#     user.perm.add_permission('*')
-#     return jsonify(list(user.perm.user.permissions))
-#
+
 # @app.route('/reg_admin')
 # def reg_admin():
 #     return str(AuthUser.register('admin@mail.ru', 'admin', display_name='Администратор TEST'))
