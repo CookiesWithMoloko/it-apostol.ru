@@ -12,7 +12,6 @@ class SfeduParser(ParserBase):
         self.session = requests.Session()
     def exec(self) -> None:
         super().exec()
-        # 10.05.03
         self.parse('https://sfedu.ru/php_j/abitur/show.php?finance=b&list=TGKT10.05.036500OSS', '10.05.03')
         self.parse('https://sfedu.ru/php_j/abitur/show.php?finance=b&list=TGKT10.05.056500OSS', '10.05.05')
         self.parse('https://sfedu.ru/php_j/abitur/show.php?finance=b&list=TGKT10.05.026500OSS', '10.05.02')
