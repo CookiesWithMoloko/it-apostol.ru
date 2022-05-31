@@ -1,10 +1,13 @@
-from flask import request,  render_template, make_response, redirect, url_for
-from app import app
-from parsers import manager
 from datetime import datetime
-from perms.auth import AuthUser
+
+from flask import request, render_template
+
 from api import api
 from api.answer import ApiAnswer
+from app import app
+from parsers import manager
+
+
 @app.route('/search')
 def search():
     return render_template('search.html')
@@ -20,23 +23,20 @@ def university():
     ])
     return render_template('university.html', parsers=parsers)
 
+
 @app.route('/check', methods=['POST', 'GET'])
 def get_result():
     r: ApiAnswer = api.execute('check', request.form)
     req = {
-        'fio': request.form.get('fio', ''),
-        'ins_number': request.form.get('ins_number', '')
+        'fio': request.values.get('fio', ''),
+        'ins_number': request.values.get('ins_number', '')
     }
     for i, v in enumerate(r.data):
         r.data[i]['change'] = datetime.utcfromtimestamp(int(r.data[i]['change']) + 3 * 3600).strftime('%H:%M %d.%m.%Y')
     if r.status and len(r.data) != 0:
         return render_template('result.html', result=r.data, request=req)
     else:
-        return render_template('error/people_not_found.html', error=r.as_dict())
-
-
-
-
+        return render_template('error/people_not_found.html', error=r.as_dict(), show_login=False)
 
 
 @app.route('/index')

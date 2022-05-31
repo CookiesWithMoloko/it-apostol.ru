@@ -14,7 +14,7 @@ class VsuetParser(ParserBase):
         super().exec()
         # 10.05.03
         r = self.session.post(
-            "http://priem.vsuet.ru/query.php",
+            "https://priem.vsuet.ru//query.php",
             data={
                 "query": "getCatals",
                 "type_id": 1,
@@ -34,7 +34,7 @@ class VsuetParser(ParserBase):
                     self.add_people(
                         ins_number=str(ch[1].text),
                         study_id=study_id,
-                        link="http://priem.vsuet.ru/Doc-admis.php",
+                        link="https://priem.vsuet.ru/Doc-admis.php",
                         agreed=not ch[8].text is None
                     )
 manager.run(VsuetParser)

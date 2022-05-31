@@ -16,8 +16,8 @@ def login():
     if request.method == 'GET':
         return render_template('login.html', show_login=False)
     elif request.method == 'POST':
-        email = request.form.get('email', None)
-        pwd = request.form.get('password', None)
+        email = request.values.get('email', None)
+        pwd = request.values.get('password', None)
         if email is None or pwd is None:
             return 'invalid args', 400
         from perms.exc import EmailNotFoundException, InvalidPasswordException
