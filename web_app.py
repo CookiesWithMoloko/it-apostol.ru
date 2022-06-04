@@ -1,7 +1,6 @@
 from app import app, db
 import flask
 from perms.auth import AuthUser
-
 flask._render_template = flask.render_template
 def __rtp(*args, **kwargs):
     kw = dict(

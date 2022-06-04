@@ -13,6 +13,7 @@ bp = Blueprint('admin', 'admin', url_prefix='/admin')
     permissions=['admin.parsers.view']
 )
 def index():
+    return abort(401, description='Adminki nema')
     parsers = list([
         {
             "obj": i,
