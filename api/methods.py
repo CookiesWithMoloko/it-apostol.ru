@@ -12,7 +12,8 @@ from parsers import manager, ParserBase
     args=[
         Argument('fio', Validator.String(), default=Argument.NONE),
         Argument('ins_number', Validator.InsNumber(), default=None)
-    ]
+    ],
+    auth_required=True
 )
 def check(fio, ins_number):
     if Argument.is_empty(fio) and Argument.is_empty(ins_number):
@@ -29,7 +30,8 @@ def check(fio, ins_number):
             Validator.String('name'), Validator.String(),
             Validator.String('time'), Validator.Integer('UnixTime')
     ),
-    args=[]
+    args=[],
+    permissions=['admin.parsers.info']
 )
 def update_time():
     i: ParserBase
@@ -50,7 +52,8 @@ def update_time():
 @api.register(
     name='update.force',
     ret=Validator.String('None'),
-    args=[]
+    args=[],
+    permissions=['admin.parsers.force_update']
 )
 def update_force():
     try:
@@ -64,7 +67,8 @@ def update_force():
 @api.register(
     name='parsers.list',
     args=[],
-    ret=Validator.List(Validator.String('Parser'))
+    ret=Validator.List(Validator.String('Parser')),
+    permissions=['admin.parsers.list']
 )
 def parsers_list():
     return ApiAnswer(True, data=[

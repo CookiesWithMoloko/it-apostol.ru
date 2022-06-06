@@ -1,15 +1,19 @@
 from datetime import datetime
 
-from flask import request, render_template
+import flask
+from flask import request, render_template, url_for
 
 from api import api
 from api.answer import ApiAnswer
 from app import app
 from parsers import manager
-
+from perms.auth import AuthUser
 
 @app.route('/search')
 def search():
+    user = AuthUser.get_user()
+    if not user.is_authorized():
+        return flask.redirect(url_for('.login'))
     return render_template('search.html')
 
 
@@ -26,6 +30,9 @@ def university():
 
 @app.route('/check', methods=['POST', 'GET'])
 def get_result():
+    user = AuthUser.get_user()
+    if not user.is_authorized():
+        return flask.redirect(url_for('.login'))
     r: ApiAnswer = api.execute('check', request.form)
     req = {
         'fio': request.values.get('fio', ''),

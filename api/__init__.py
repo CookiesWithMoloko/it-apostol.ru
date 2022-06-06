@@ -1,20 +1,25 @@
 from api.argument import Argument
-
+from typing import List
 from werkzeug.datastructures import MultiDict
 from api.answer import ApiAnswer
 from api.validator import Validator
+from perms.auth import AuthUser
 class ApiMethod:
     def __init__(self, *,
                  name: str,
                  action,
                  args: list,
-                 ret: Validator
+                 ret: Validator,
+                 permissions: List[str] = None,
+                 authorization_required: bool = True
                  ):
         self.name = name
         self.ret = str(ret)
         self.args = args
         self.action = action
         self.length = len(list(filter(lambda a: a.default is not None, args)))
+        self.permissions: List[str] = permissions if permissions is not None else list()
+        self.authorization_required: bool = authorization_required or len(self.permissions) > 0
     def as_dict(self):
         i: Argument
         return {
@@ -22,12 +27,20 @@ class ApiMethod:
             "return": self.ret,
             "args": list([
                 i.as_dict() for i in self.args
-            ])
+            ]),
+            "auth_required": self.authorization_required
         }
     def __doc__(self, d=False):
         return f"{self.name} -> {self.ret}"
 
     def execute(self, args: MultiDict) -> ApiAnswer:
+        if self.authorization_required:
+            user = AuthUser.get_user()
+            if not user.is_authorized():
+                return ApiAnswer(False, error='Authorization required')
+            for p in self.permissions:
+                if not user.has_permission(p):
+                    return ApiAnswer(False, error='Dont have permission')
         r = dict()
         i: Argument
         for i in self.args:
@@ -57,7 +70,8 @@ class Api:
     def register(self, *,
                  name: str,
                  ret: str,
-                 permission: str = '',
+                 permissions: List[str] = None,
+                 auth_required: bool = True,
                  args: list = [],
                  ):
         def r(f):
@@ -66,7 +80,9 @@ class Api:
                     name=name,
                     ret=ret,
                     args=args,
-                    action=f
+                    action=f,
+                    authorization_required=auth_required,
+                    permissions=permissions
                 )
             )
 
