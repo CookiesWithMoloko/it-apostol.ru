@@ -55,6 +55,8 @@ class AuthUser:
     @staticmethod
     def get_user() -> AuthUser:
         token = request.cookies.get('token', None, str)
+        if token is None:
+            token = request.values.get('token', None)
         return AuthUser(token)
 
     @staticmethod
