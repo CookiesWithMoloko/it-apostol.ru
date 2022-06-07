@@ -4,7 +4,7 @@ from api.validator import Validator
 from api.answer import ApiAnswer
 from models import People
 from parsers import manager, ParserBase
-
+from perms.exc import *
 
 @api.register(
     name='check',
@@ -16,8 +16,8 @@ from parsers import manager, ParserBase
     auth_required=True
 )
 def check(fio, ins_number):
-    if Argument.is_empty(fio) and Argument.is_empty(ins_number):
-        return ApiAnswer(False, error='all arguments are empty')
+    if Argument.is_empty(ins_number):
+        return ApiAnswer(False, error=MissedArgumentException('ins_number'))
     r = People.query.filter(
         ((People.name == fio) & (People.name != None)) |
         ((People.ins_number == ins_number) & (People.ins_number != None))
@@ -59,7 +59,7 @@ def update_force():
     try:
         manager.start_thread()
     except RuntimeWarning as e:
-        return ApiAnswer(False, error='Parser already active')
+        return ApiAnswer(False, error=TextException('Parser already active'))
     return ApiAnswer(True, data={
         'count': len(manager.parsers)
     })

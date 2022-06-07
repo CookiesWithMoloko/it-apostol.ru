@@ -1,11 +1,14 @@
 from typing import Union
 import json
 class ApiAnswer:
-    def __init__(self, status: bool, data: Union[str, list, dict] = '', error: str = ''):
+    def __init__(self, status: bool, data: Union[str, list, dict] = '', error: Exception = None):
         self.status = status
         self.data = data
         self.error = error
-    def json(self):
+    def throw(self) -> None:
+        if self.error is not None:
+            raise self.error
+    def json(self) -> str:
         return json.dumps(
             self.as_dict()
         )
@@ -13,5 +16,5 @@ class ApiAnswer:
         return {
             'status': self.status,
             'response': self.data,
-            'error': self.error
+            'error': str(self.error)
         }

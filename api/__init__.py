@@ -3,7 +3,9 @@ from typing import List
 from werkzeug.datastructures import MultiDict
 from api.answer import ApiAnswer
 from api.validator import Validator
+from perms.exc import *
 from perms.auth import AuthUser
+
 class ApiMethod:
     def __init__(self, *,
                  name: str,
@@ -37,10 +39,10 @@ class ApiMethod:
         if self.authorization_required:
             user = AuthUser.get_user()
             if not user.is_authorized():
-                return ApiAnswer(False, error='Authorization required')
+                return ApiAnswer(False, error=AuthorizationRequiredException())
             for p in self.permissions:
                 if not user.has_permission(p):
-                    return ApiAnswer(False, error='Dont have permission')
+                    return ApiAnswer(False, error=PermissionDeniedException(p))
         r = dict()
         i: Argument
         for i in self.args:

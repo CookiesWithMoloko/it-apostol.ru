@@ -1,8 +1,16 @@
 from api.validator import Validator
 from api.answer import ApiAnswer
 
+from perms.exc import *
+
 
 class Argument:
+    def __init__(self, name, form: Validator, default=None):
+        self.name = name
+        self.form = form
+        self.value = None
+        self.default = default
+
     class DEFAULT_NONE_CLASS:
         def __str__(self):
             return "None"
@@ -21,20 +29,14 @@ class Argument:
     def is_empty(value):
         return value is None or value == ''
 
-    def __init__(self, name, form: Validator, default=None):
-        self.name = name
-        self.form = form
-        self.value = None
-        self.default = default
-
     def get(self, value) -> ApiAnswer:
         t = self.form.check(value)
         if t is None and self.default is None:
-            return ApiAnswer(False, error=f'Invalid argument, missed argument `{self.name}`')
+            return ApiAnswer(False, error=InvalidArgumentException(self.name))
         elif t is None:
             return ApiAnswer(True, data=None if self.default is Argument.NONE else self.default)
         elif t is False:
-            return ApiAnswer(False, error=f'Invalid type for `{self.name}` argument, required type `{self.form.name}`')
+            return ApiAnswer(False, error=InvalidArgumentTypeException(self.name, self.form))
         elif t:
             return ApiAnswer(True, data=value)
 

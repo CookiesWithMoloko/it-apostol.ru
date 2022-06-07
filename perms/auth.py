@@ -77,9 +77,6 @@ class AuthUser:
     @staticmethod
     def auth_user(email: str, password: str) -> str | InvalidPasswordException | EmailNotFoundException:
         """
-
-        :param email:
-        :param password:
         :return: token
         """
         user = User.query.filter_by(email=email).first()
