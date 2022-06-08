@@ -13,7 +13,9 @@ from perms.exc import *
         Argument('fio', Validator.String(), default=Argument.NONE),
         Argument('ins_number', Validator.InsNumber(), default=None)
     ],
-    auth_required=True
+    permissions=[
+        'main.search'
+    ]
 )
 def check(fio, ins_number):
     if Argument.is_empty(ins_number):

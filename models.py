@@ -73,8 +73,12 @@ class User(db.Model):
     permissions = db.Column(MutableList.as_mutable(db.PickleType), default=[])
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
     group = db.relationship('Group', backref='users')
-
-
+    def get_group(self):
+        if self.group is None:
+            self.group = Group.query.filter_by(name='authorized').first()
+            self.group_id = self.group.id
+            db.session.commit()
+        return self.group
 class Group(db.Model):
     __tablename__ = 'group'
     id = db.Column(db.Integer, primary_key=True)

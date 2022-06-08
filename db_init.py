@@ -1,5 +1,5 @@
 from app import db
-from models import University, StudyDirection, User
+from models import University, StudyDirection, User, Group
 from perms.auth import AuthUser
 u = (
     University(
@@ -32,9 +32,26 @@ s = (
         description='Информационная безопасность'
     )
 )
+if User.query.filter_by(email='admin@mail.ru').first() is None:
+    AuthUser.register(
+        email='admin@mail.ru',
+        password='admin',
+        display_name='Администратор'
+    )
+    AuthUser(AuthUser.auth_user('admin@mail.ru', 'admin')).perm.add_permission('*')
+if Group.query.filter_by(name='authorized').first() is None:
+    db.session.add(Group(
+        name='authorized',
+        display_name='Авторизованный пользователь',
+        priority=1,
+        permissions=[
+            'main.search'
+        ]
+    ))
 for i in u:
     if University.query.filter_by(name=i.name).first() is None:
         db.session.add(i)
 for i in s:
     if StudyDirection.query.filter_by(name=i.name).first() is None:
         db.session.add(i)
+db.session.commit()
