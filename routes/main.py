@@ -12,7 +12,7 @@ from perms.exc import *
 @app.route('/search')
 def search():
     user = AuthUser.get_user()
-    if not user.perm.has_permission('main.search'):
+    if not user.has_permission('main.search'):
         return flask.redirect(url_for('.login'))
     return render_template('search.html')
 
@@ -38,7 +38,7 @@ def get_result():
     try:
         r.throw()
     except PermissionDeniedException as e:
-        if not AuthUser.get_user().perm.has_permission('main.search'):
+        if not AuthUser.get_user().has_permission('main.search'):
             return abort(401, description=str(e))
         return flask.redirect(url_for('.login'))
     for i, v in enumerate(r.data):

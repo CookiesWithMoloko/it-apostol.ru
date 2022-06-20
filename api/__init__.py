@@ -5,6 +5,7 @@ from api.answer import ApiAnswer
 from api.validator import Validator
 from perms.exc import *
 from perms.auth import AuthUser
+from typing import Callable
 
 class ApiMethod:
     def __init__(self, *,
@@ -75,7 +76,7 @@ class Api:
                  permissions: List[str] = None,
                  auth_required: bool = True,
                  args: list = [],
-                 ):
+                 ) -> Callable[[], None]:
         def r(f):
             self.methods.append(
                 ApiMethod(

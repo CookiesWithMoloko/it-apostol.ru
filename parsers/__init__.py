@@ -1,11 +1,8 @@
-import sqlalchemy.sql.compiler
 from flask_sqlalchemy import SQLAlchemy
 from models import People, StudyDirection, University
 from time import time
 from typing import List
-from threading import Thread
 import re
-from app import app
 class ParserStatus:
     def __init__(self, display: str, status: bool, color: str):
         self._display = display
@@ -39,8 +36,8 @@ class ParserBase:
         self._number_pattern = re.compile('^[0-9]{3}-[0-9]{3}-[0-9]{3} [0-9]{2}$')
         self.active = True
         self.model = None
-        self.name: str
-        self.dirs: List[str]
+        self.name: str = 'ParserDefault'
+        self.dirs: List[StudyDirection] = []
     def get_count_peoples(self) -> int:
         return People.query.filter_by(university_id=self.id).count()
     def as_dict(self):
@@ -97,7 +94,7 @@ class ParserBase:
                     ins_number: str = None,
                     name: str = None) -> int:
         if len(list(filter(lambda a: a is not None, [reg_number, ins_number, name]))) == 0:
-            return
+            return -1
         obj = People(
             reg_number=reg_number,
             ins_number=ins_number,
