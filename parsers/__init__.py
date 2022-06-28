@@ -1,7 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import sessionmaker, Session
+from threading import Thread
 from models import People, StudyDirection, University
 from time import time
-from typing import List
+from typing import List, Optional
+import traceback
 import re
 class ParserStatus:
     def __init__(self, display: str, status: bool, color: str):
@@ -28,7 +31,8 @@ class ParserBase:
                  database: SQLAlchemy,
                  interval: int,
                  last_use: int = 0):
-        self.db: SQLAlchemy = database
+        self.__s_maker: sessionmaker = database.create_session({})
+        self.__session: Optional[Session] = None
         self.status: ParserStatus = StatusList.ACTIVE
         self.last_use = last_use
         self.interval = interval
@@ -47,7 +51,7 @@ class ParserBase:
             'id': self.id,
             'last_use': self.last_use,
             'dirs': [
-                i.name for i in self.dirs
+                i['name'] for i in self.dirs
             ]
         }
     def is_actual(self):
@@ -55,6 +59,10 @@ class ParserBase:
 
     def exec(self) -> None:
         self.last_use = time()
+        self.__session = self.__s_maker()
+    def after_exec(self) -> None:
+        self.__session.close()
+        self.__session = None
     def get_model(self) -> University:
         if self.model is None:
             self.model = University.query.filter_by(id=self.id).first().as_dict()
@@ -106,8 +114,8 @@ class ParserBase:
             change=int(time()),
             university_id=self.id
         )
-        self.db.session.add(obj)
-        self.db.session.commit()
+        self.__session.add(obj)
+        self.__session.commit()
         return obj.id
 
     def _update_people(self,
@@ -122,7 +130,7 @@ class ParserBase:
                     st = True
         if st:
             p.change = time()
-            self.db.session.commit()
+            self.__session.commit()
 
     @staticmethod
     def get_direction_id(name: str) -> int:
@@ -143,7 +151,7 @@ class ParserBase:
 class ParserManager:
     def __init__(self):
         self.active = False
-        self.parsers = []
+        self.parsers: List[ParserBase] = []
         self.work = False
         self.t = None
         self.status = None
@@ -184,6 +192,10 @@ class ParserManager:
 
     def exec(self) -> None:
         self.work = True
+        try:
+            self.status = 'get: ' + str(University.query.filter_by(id=self.parsers[0].id).first())
+        except Exception as e:
+            self.status = 'get: error (%s)' % str(e)
         if not self.active:
             raise RuntimeError("ParserManager.post_register() require for work ParserManager.exec()")
         for i in self.parsers:
@@ -193,12 +205,16 @@ class ParserManager:
                     i.exec()
                     self.status = f'end update {i}'
             except Exception as e:
-                print(e)
+                traceback.print_exc()
         self.work = False
         self.t = None
 
     def start_thread(self):
-        self.exec()
+        if self.t is None:
+            self.t = Thread(target=self.exec)
+            self.t.start()
+        else:
+            raise RuntimeWarning("ParserManager.start_thread() already started")
 
 
 manager = ParserManager()

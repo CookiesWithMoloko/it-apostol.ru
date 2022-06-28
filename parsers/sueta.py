@@ -37,4 +37,5 @@ class VsuetParser(ParserBase):
                         link="https://priem.vsuet.ru/Doc-admis.php",
                         agreed=not ch[8].text is None
                     )
+        super().after_exec()
 manager.run(VsuetParser)

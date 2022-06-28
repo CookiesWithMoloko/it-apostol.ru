@@ -14,13 +14,13 @@ bp = Blueprint('admin', 'admin', url_prefix='/admin')
 )
 def index():
     return abort(401, description='Adminki nema')
-    parsers = list([
-        {
-            "obj": i,
-            "model": i.get_model()
-        } for i in manager.parsers
-    ])
-    return render_template('admin/parsers.html', parsers=parsers)
+    # parsers = list([
+    #     {
+    #         "obj": i,
+    #         "model": i.get_model()
+    #     } for i in manager.parsers
+    # ])
+    # return render_template('admin/parsers.html', parsers=parsers)
 
 app.register_blueprint(bp)
 

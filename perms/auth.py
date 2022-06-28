@@ -35,14 +35,17 @@ class AuthUser:
         return self.perm.has_permission(perm)
 
     @staticmethod
-    def register(email: str, password: str, display_name=None) -> bool:
+    def register(email: str, password: str, display_name=None, permissions: Optional[List[str]] = None) -> bool:
         if display_name is None:
             display_name = email
+        if permissions is None:
+            permissions = []
         u = User(
             email=email,
             password=AuthUser.password_manager.hash_password(password),
             display_name=display_name,
-            token=email
+            token=email,
+            permissions=permissions
         )
         try:
             db.session.add(u)

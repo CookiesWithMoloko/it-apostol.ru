@@ -60,7 +60,7 @@ def update_time():
 def update_force():
     try:
         manager.start_thread()
-    except RuntimeWarning as e:
+    except RuntimeWarning:
         return ApiAnswer(False, error=TextException('Parser already active'))
     return ApiAnswer(True, data={
         'count': len(manager.parsers)

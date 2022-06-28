@@ -16,6 +16,7 @@ class SfeduParser(ParserBase):
         self.parse('https://sfedu.ru/php_j/abitur/show.php?finance=b&list=TGKT10.05.056500OSS', '10.05.05')
         self.parse('https://sfedu.ru/php_j/abitur/show.php?finance=b&list=TGKT10.05.026500OSS', '10.05.02')
         self.parse('https://sfedu.ru/php_j/abitur/show.php?finance=b&list=TGKT10.03.016200OSS', '10.03.01')
+        super().after_exec()
     def parse(self, link: str, code: str) -> None:
         page = self.session.get(link).content
         tree = html.fromstring(page)
@@ -27,6 +28,7 @@ class SfeduParser(ParserBase):
             children = i.getchildren()
             if len(children) >= 5:
                 if self.validate_number(children[1].text):
+                    print(str(children[1].text), study_id)
                     self.add_people(
                         ins_number=str(children[1].text),
                         study_id=study_id,

@@ -36,9 +36,9 @@ if User.query.filter_by(email='admin@mail.ru').first() is None:
     AuthUser.register(
         email='admin@mail.ru',
         password='admin',
-        display_name='Администратор'
+        display_name='Администратор',
+        permissions=['*']
     )
-    AuthUser(AuthUser.auth_user('admin@mail.ru', 'admin')).perm.add_permission('*')
 if Group.query.filter_by(name='authorized').first() is None:
     db.session.add(Group(
         name='authorized',
