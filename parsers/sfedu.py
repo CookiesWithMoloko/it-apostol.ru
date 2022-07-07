@@ -28,7 +28,6 @@ class SfeduParser(ParserBase):
             children = i.getchildren()
             if len(children) >= 5:
                 if self.validate_number(children[1].text):
-                    print(str(children[1].text), study_id)
                     self.add_people(
                         ins_number=str(children[1].text),
                         study_id=study_id,
